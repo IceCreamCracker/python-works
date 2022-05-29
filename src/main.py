@@ -1,6 +1,6 @@
 #for this program inputs, the y axis has a standard cartesian plane orientation, so below < above
 #TODO: UI intuitive interaction
-
+#TEORICAMENTE ESTÁ FUNCIONANDO KKKKK
 
 class Rect:
     def __init__(self,x1,y1,x2,y2):
@@ -12,8 +12,8 @@ def isIntersected(rect1,rect2):
     y = (rect1.start["y"] - rect2.end["y"])
     a = (rect1.end["x"] - rect2.start["x"])
     b = (rect1.end["y"] - rect2.start["y"])
-    #if a or b or x or y == 0:  #the rectangles tangent each other
-        #return False
+    if a == 0 or b == 0 or x == 0 or y == 0:  #the rectangles tangent each other
+        return False
 
     x_intersected = a/x < 0
     y_intersected = b/y < 0
@@ -34,9 +34,8 @@ def getNewRectList(rectList,rect):
                 min(rect.end["y"],r.end["y"])
             ) 
             rectList.remove(r)
-            rectList.append(new_rect)
+            #rectList.append(new_rect)
             
-
             #switch r and rect by new_rect and restart rects search
             return getNewRectList(rectList,new_rect)
     rectList.append(rect)
