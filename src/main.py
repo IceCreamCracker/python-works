@@ -2,6 +2,8 @@
 #TODO: UI intuitive interaction
 #TEORICAMENTE ESTÁ FUNCIONANDO KKKKK
 from functions import *
+def helloWorld():
+    print("Hello World")
 
 def main():
     rectList = []
