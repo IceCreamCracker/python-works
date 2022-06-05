@@ -16,9 +16,12 @@
 
     <!--os scripts devem estar neste bloco-->
     <script>
+        //evento, sempre que clicar no botão,
+        //ele pega os valores das coordenadas e chama o servidor para
+        //retornar a nova lista de retângulos
         $("#submit").on("click",()=>{
             let values = $("#coords").val().split(" ")
-            console.log(reqRect(...values)) 
+            reqRect(...values) 
         })
     </script>
     {% endblock %}
