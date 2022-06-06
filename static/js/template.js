@@ -49,7 +49,7 @@ updateNumOfCoords = (rects) => {
 //API REQUESTS
 reqRect = (x1,y1,x2,y2) => {
     $.ajax({
-        url:"http://127.0.0.1:5000/api",
+        url:"https://mosaico-teres.herokuapp.com/api",
         method:"get",
         data: {
             x1:x1,
@@ -67,7 +67,7 @@ reqRect = (x1,y1,x2,y2) => {
 }
 delRects = () => {
     $.ajax({
-        url:"http://127.0.0.1:5000/delete",
+        url:"https://mosaico-teres.herokuapp.com/delete",
         type:"get",
         success:document.location.reload()
     })
