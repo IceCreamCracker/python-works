@@ -3,25 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script><script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
-    <title></title>
+    <title>Mosaico TERES</title>
 </head>
 <body>
     {% extends "template.html" %}
     {% block content %}
-    <canvas id="canvas" width="500" height="500" style="border:1px solid black"></canvas>
+    <canvas id="canvas" width="500" height="500" style="border:1px solid black;display:block;margin:0 auto"></canvas>
+        <span>A tela apenas processa coordenadas entre 0 e 500 nesta versão</span></br>
+        <span>Insira as coordenadas (valores inteiros) no formato x1 y1 x2 y2 (separados por qualquer caracter que não seja número),</br> sendo elas respectivamente x e y do vertice superior esquerdo do retangulo e x e y do vértice inferior direito do retângulo</span></br>
         <input id="coords" type="text">
-        <button id="submit">submit</button>
-    <h1>as coordenadas são 
-          <span id="x1"></span> <span id="y1"></span> <span id="x2"></span> <span id="y2"></span></h1>
+        <button id="submit">Adicionar nova Área</button>
+        <button id="delete">Resetar Áreas</button>
+        <h2>As coordenadas dos <span id="qtd"></span> retangulos são:</h2> 
+        <div class="coordList">
+            <!-- {%for i in rectList%} -->
+            <!-- <span>({{i.start["x"]}},{{i.start["y"]}}) ({{i.end["x"]}},{{i.end["y"]}})</span></br> -->
+            <!-- {%endfor%} -->
+        </div>
 
     <!--os scripts devem estar neste bloco-->
     <script>
+        
+        document.getElementById("canvas").getContext("2d").transform(1, 0, 0, -1, 0, canvas.height)
         //evento, sempre que clicar no botão,
         //ele pega os valores das coordenadas e chama o servidor para
         //retornar a nova lista de retângulos
         $("#submit").on("click",()=>{
-            let values = $("#coords").val().split(" ")
-            reqRect(...values) 
+            //trata os dados 
+            let values = $("#coords").val().split(/[\D]+/)
+            newvalues = values.filter((a)=>a)
+
+            reqRect(...newvalues) 
+        })
+        $("#delete").on("click",()=>{
+            delRects()
         })
     </script>
     {% endblock %}

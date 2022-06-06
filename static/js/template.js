@@ -5,12 +5,12 @@
 drawRect = (x1,y1,x2,y2) => {
     canvas = document.getElementById("canvas")
     ctx = canvas.getContext("2d")
-    ctx.transform(1, 0, 0, -1, 0, canvas.height)
     ctx.beginPath()
     //ctx.strokeRect(0,0,20,20)
 
     ctx.lineWidth = 1
-    ctx.strokeRect(x1,y2,Math.abs(x1-x2),Math.abs(y1-y2))
+    ctx.fillStyle = "green"
+    ctx.fillRect(x1,y2,Math.abs(x1-x2),Math.abs(y1-y2))
 }
 
 clearAll = () => {
@@ -22,7 +22,6 @@ clearAll = () => {
 updateCanvas = (rects => {
     clearAll()
     rects.map(a => {
-        console.log(a)
         drawRect(
             a["start"]["x"],
             a["start"]["y"],
@@ -31,6 +30,20 @@ updateCanvas = (rects => {
         )
     })
 })
+
+
+//coords management
+updateCoordList = (rects =>{
+    $(".coordList").html("")
+    rects.map(r => {
+        $(".coordList").append(`
+            (${r["start"]["x"]},${r["start"]["y"]}) (${r["end"]["x"]},${r["end"]["y"]})</br>
+        `)
+    })
+})
+updateNumOfCoords = (rects) => {
+    $("#qtd").html(`${rects.length}`)
+}
 
 
 //API REQUESTS
@@ -46,7 +59,16 @@ reqRect = (x1,y1,x2,y2) => {
         },
 
         success: (res)=>{
+            updateCoordList(res)
             updateCanvas(res)
+            updateNumOfCoords(res)
         }
+    })
+}
+delRects = () => {
+    $.ajax({
+        url:"http://127.0.0.1:5000/delete",
+        type:"get",
+        success:document.location.reload()
     })
 }

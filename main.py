@@ -13,8 +13,8 @@ app = Flask(__name__)
 CORS(app)
 @app.route('/')
 def home():
-    lang = request.args.get('lang')
-    return render_template("home.html", lang=lang)
+    global rectList
+    return render_template("home.html", rectList=rectList)
 
 @app.route('/api')
 def api():
@@ -29,6 +29,12 @@ def api():
     rectListForJson = [rect.__dict__ for rect in rectList]
     return make_response(jsonify(rectListForJson))
 
+#sim é só digitar /delete na frente da url e pronto. Super seguro
+@app.route('/delete')
+def delete():
+    global rectList
+    rectList = []
+    return make_response(jsonify({"deleted":True}))
 
 if __name__ == "__main__":
     app.run(debug=True)
