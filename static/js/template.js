@@ -33,7 +33,7 @@ updateCanvas = (rects => {
 
 
 //coords management
-updateCoordList = (rects =>{
+updateCoordList = (rects =>{//atualiza lista de coordenadas
     $(".coordList").html("")
     rects.map(r => {
         $(".coordList").append(`
@@ -41,15 +41,18 @@ updateCoordList = (rects =>{
         `)
     })
 })
-updateNumOfCoords = (rects) => {
+
+updateNumOfCoords = (rects) => { //atualiza numero de coordenadas
     $("#qtd").html(`${rects.length}`)
 }
 
 
 //API REQUESTS
-reqRect = (x1,y1,x2,y2) => {
+var tmp;
+reqRect = (x1,y1,x2,y2)=>{
     $.ajax({
-        url:"https://mosaico-teres.herokuapp.com/api",
+        //url:"https://mosaico-teres.herokuapp.com/api",
+        url:"api",
         method:"get",
         data: {
             x1:x1,
@@ -59,12 +62,24 @@ reqRect = (x1,y1,x2,y2) => {
         },
 
         success: (res)=>{
-            updateCoordList(res)
-            updateCanvas(res)
-            updateNumOfCoords(res)
+            setTimeout(()=>{
+                updateCoordList(res)
+                updateCanvas(res)
+                updateNumOfCoords(res)
+            },20)
+            tmp = res
         }
     })
+    return tmp;
 }
+
+
+// reqWithJson = (rectList,coords) => {
+//     $ajax({
+
+//     })
+// }
+
 delRects = () => {
     $.ajax({
         url:"https://mosaico-teres.herokuapp.com/delete",

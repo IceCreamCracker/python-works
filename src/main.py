@@ -6,11 +6,14 @@ def helloWorld():
     print("Hello World")
 
 def main():
-    rectList = []
+    rectList = [] #aqui será armazenado toda a lista de retangulos
+    
     while True:
-        new_rect = inputNewRect()
-        rectList = getNewRectList(rectList,new_rect)
+        new_rect = inputNewRect() #recebe do usuario as coordenadas tratadas
+        rectList = getNewRectList(rectList,new_rect) #atualiza a lista com as coordenadas novas
 
-        for i in rectList:
+        #printa os retangulos e a quantidade deles
+        for i in rectList:#
             print(i.start,i.end,end=" ")
+        print("a quantidade de retangulos é",len(rectList))
 main()

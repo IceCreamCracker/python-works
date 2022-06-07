@@ -16,25 +16,43 @@
         <button id="delete">Resetar Áreas</button>
         <h2>As coordenadas dos <span id="qtd"></span> retangulos são:</h2> 
         <div class="coordList">
-            <!-- {%for i in rectList%} -->
-            <!-- <span>({{i.start["x"]}},{{i.start["y"]}}) ({{i.end["x"]}},{{i.end["y"]}})</span></br> -->
-            <!-- {%endfor%} -->
         </div>
 
     <!--os scripts devem estar neste bloco-->
     <script>
-        
+        let rectList = [{
+                    "start":{
+                                "x":0,
+                                "y":0
+                            },
+                    "end":{
+                                "x":0,
+                                "y":0
+                            }
+                }]
         document.getElementById("canvas").getContext("2d").transform(1, 0, 0, -1, 0, canvas.height)
         //evento, sempre que clicar no botão,
         //ele pega os valores das coordenadas e chama o servidor para
         //retornar a nova lista de retângulos
         $("#submit").on("click",()=>{
             //trata os dados 
+            
             let values = $("#coords").val().split(/[\D]+/)
             newvalues = values.filter((a)=>a)
+            if( !Array.isArray(newvalues) 
+                || newvalues.length != 4 
+                || (parseInt(newvalues[1]) < parseInt(newvalues[3]))
+                || (parseInt(newvalues[0]) > parseInt(newvalues[2]))){
+               alert("o input esta errado, verifique as coordenadas") 
+               return
+            }
 
-            reqRect(...newvalues) 
+            rectList = reqRect(...newvalues) 
+
+
+            //console.log(rectList)
         })
+        //deleta as coordenadas
         $("#delete").on("click",()=>{
             delRects()
         })
