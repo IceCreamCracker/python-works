@@ -62,6 +62,9 @@ reqRect = (x1,y1,x2,y2)=>{
         },
 
         success: (res)=>{
+            console.log(res)
+            console.log(typeof(res))
+            //res = res.split(';')
             setTimeout(()=>{
                 updateCoordList(res)
                 updateCanvas(res)
@@ -82,7 +85,7 @@ reqRect = (x1,y1,x2,y2)=>{
 
 delRects = () => {
     $.ajax({
-        url:"https://mosaico-teres.herokuapp.com/delete",
+        url:"delete",
         type:"get",
         success:document.location.reload()
     })

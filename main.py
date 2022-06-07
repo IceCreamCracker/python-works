@@ -1,3 +1,4 @@
+#autor: Matheus Bernard Mota
 import sys
 sys.path.insert(0,"./src")
 
@@ -21,7 +22,6 @@ def home():
 #esta rota é para as requisições de retangulos processadas pelo backend
 @app.route('/api')
 def api():
-    time.sleep(0.1)
     global rectList
     rect = Rect(
             int(request.args.get('x1')),
@@ -32,7 +32,6 @@ def api():
     #rectList = json.load(request.args.get('rectList'))#loada o json
     rectList = getNewRectList(rectList,rect)    
     rectListForJson = [rect.__dict__ for rect in rectList] #transforma rectList em dicionário para ser transformada em json
-    time.sleep(0.1)
     return make_response(jsonify(rectListForJson))
 
 #sim é só digitar /delete na frente da url e pronto. Super seguro
